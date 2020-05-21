@@ -8,6 +8,8 @@ class Obra extends Model
 {
     protected $fillable = ['nome', 'user_id'];
 
+    protected $table = 'Obras';
+    
     public function imagems(){
         return $this->hasMany(Imagem::class);
     }
