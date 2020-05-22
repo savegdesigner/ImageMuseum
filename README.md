@@ -1,2 +1,2 @@
 # ImageMuseum
-Projeto Académico
+Projeto Acadêmico
