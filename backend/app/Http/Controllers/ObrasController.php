@@ -29,9 +29,11 @@ class ObrasController extends Controller
 
     public function show($id)
     {
+        $imagens = Obra::find($id)->imagems;
         $obra = Obra::find($id);
+        $array = [ $imagens, $obra];
         if($obra){
-            return $obra;
+            return $array;
         } else{
             return json_encode([$id => 'Não existe']);
         }
