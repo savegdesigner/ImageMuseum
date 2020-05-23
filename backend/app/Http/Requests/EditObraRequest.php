@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateImagemRequest extends FormRequest
+class EditObraRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CreateImagemRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,8 @@ class CreateImagemRequest extends FormRequest
     public function rules()
     {
         return [
-            'imagem' => 'required|image',
-            'filtro' => 'required',
-            'obra_id' => 'required'
+            'nome' => 'required|max:255',
+            'user_id' => 'required'
         ];
     }
 }

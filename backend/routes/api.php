@@ -29,5 +29,6 @@ Route::group(['prefix' => 'museum'], function(){
     Route::post('/imagems','ImagemsController@store');
     Route::put('/imagems/{id}','ImagemsController@update');
     Route::delete('/imagems/{id}','ImagemsController@destroy');
+    Route::post('/user', 'UserController@signup');
 });
 

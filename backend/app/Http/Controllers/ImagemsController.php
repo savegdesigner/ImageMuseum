@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Obra;
 use App\Imagem;
-use App\Http\Requests\CreateImageRequest;
+use App\Http\Requests\CreateImagemRequest;
+use App\Http\Requests\EditImagemRequest;
 
 class ImagemsController extends Controller
 {
@@ -19,11 +20,16 @@ class ImagemsController extends Controller
         //
     }
 
-    public function store(Request $request)
-    {
+    public function store(CreateImagemRequest $request)
+    {   
+        $imagem = $request->imagem->store('imagems');
         $json = $request->getContent();
-
-        return Imagem::create(json_decode($json, JSON_OBJECT_AS_ARRAY));
+        $objImagem = Imagem::create(json_decode($json, JSON_OBJECT_AS_ARRAY));
+        $objImagem->imagem = $imagem;
+        $objImagem->save();
+        return response()->json([
+            'message' => 'Imagem cadastrada com sucesso'
+        ],201);
     }
 
     public function show($id)
@@ -32,7 +38,7 @@ class ImagemsController extends Controller
         if($imagem){
             return $imagem;
         } else{
-            return json_encode([$id => 'Não existe']);
+            return json_encode([$id => 'Imagem não existe']);
         }
     }
 
@@ -41,28 +47,28 @@ class ImagemsController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(EditImagemRequest $request, $id)
     {
         $imagem = Imagem::find($id);
         if ($imagem) {
             $json = $request->getContent();
             $atualizacao = json_decode( $json, JSON_OBJECT_AS_ARRAY);
             $imagem->filtro = $atualizacao['filtro'];
-            $ret = $imagem->update() ? [$id => 'atualizado'] : [$id => 'erro'];
+            $return = $imagem->update() ? [$id => 'Imagem atualizada com sucesso'] : [$id => 'Erro ao atualizar a imagem'];
         } else {
-            $ret = [$id => 'nao existe'];
+            $return = [$id => 'Imagem não existe'];
         }
-        return json_encode($ret);
+        return json_encode($return);
     }
 
     public function destroy($id)
     {
         $imagem = Imagem::find($id);
         if($imagem){
-            $ret = $imagem->delete() ? [$id => 'apagado']:[$id => 'erro'];
+            $return = $imagem->delete() ? [$id => 'Imagem excluída com sucesso']:[$id => 'Erro ao atualizar a imagem'];
         } else{
-            $ret = [$id => 'não existe'];
+            $return = [$id => 'Imagem não existe'];
         }
-        return json_encode($ret);
+        return json_encode($return);
     }
 }
