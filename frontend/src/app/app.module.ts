@@ -15,6 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserObraCreateComponent } from './components/user/user-obra-create/user-obra-create.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 
 
@@ -26,6 +28,8 @@ import { UserObraCreateComponent } from './components/user/user-obra-create/user
     PerfilComponent,
     UserObrasComponent,
     UserObraCreateComponent,
+    SigninComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
