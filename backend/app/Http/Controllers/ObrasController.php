@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Obra;
 use App\Imagem;
 use App\Http\Requests\CreateObraRequest;
+use App\Http\Requests\EditObraRequest;
 
 class ObrasController extends Controller
 {
@@ -20,20 +21,24 @@ class ObrasController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(CreateObraRequest $request)
     {
         $json = $request->getContent();
-
-        return Obra::create(json_decode($json, JSON_OBJECT_AS_ARRAY));
+        $obra = Obra::create(json_decode($json, JSON_OBJECT_AS_ARRAY));
+        $obra->save();
+        return response()->json([
+            'message' => 'Obra cadastrada com sucesso']);
     }
 
     public function show($id)
     {
+        $imagens = Obra::find($id)->imagems;
         $obra = Obra::find($id);
+        $array = [ $imagens, $obra];
         if($obra){
-            return $obra;
+            return $array;
         } else{
-            return json_encode([$id => 'Não existe']);
+            return json_encode([$id => 'Obra não existe']);
         }
     }
 
@@ -42,28 +47,28 @@ class ObrasController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(EditObraRequest $request, $id)
     {
         $obra = Obra::find($id);
         if ($obra) {
             $json = $request->getContent();
             $atualizacao = json_decode( $json, JSON_OBJECT_AS_ARRAY);
             $obra->nome = $atualizacao['nome'];
-            $ret = $obra->update() ? [$id => 'atualizado'] : [$id => 'erro'];
+            $return = $obra->update() ? [$id => 'Obra atualizada com sucesso'] : [$id => 'Erro ao atualizar a obra'];
         } else {
-            $ret = [$id => 'nao existe'];
+            $return = [$id => 'Obra não existe'];
         }
-        return json_encode($ret);
+        return json_encode($return);
     }
 
     public function destroy($id)
     {
         $obra = Obra::find($id);
         if($obra){
-            $ret = $obra->delete() ? [$id => 'apagado']:[$id => 'erro'];
+            $return = $obra->delete() ? [$id => 'Obra excluída com sucesso']:[$id => 'Erro ao excluir a obra'];
         } else{
-            $ret = [$id => 'não existe'];
+            $return = [$id => 'Obra não existe'];
         }
-        return json_encode($ret);
+        return json_encode($return);
     }
 }
