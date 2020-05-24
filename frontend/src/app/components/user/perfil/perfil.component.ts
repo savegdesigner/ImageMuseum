@@ -13,8 +13,4 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public getUser(): void{
-    this.userService.getUser()
-  }
-
 }
