@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'museum'], function(){
     Route::post('/user/signup', 'UserController@signup');
     Route::post('/user/signin', 'UserController@signin');
+    Route::get('/user', 'UserController@index');
 });
 
 Route::group(['middleware' => ['apiJwt'], 'prefix' => 'museum'], function () {
@@ -18,6 +19,6 @@ Route::group(['middleware' => ['apiJwt'], 'prefix' => 'museum'], function () {
     Route::post('/imagems','ImagemsController@store');
     Route::put('/imagems/{id}','ImagemsController@update');
     Route::delete('/imagems/{id}','ImagemsController@destroy');
-    Route::get('/user', 'UserController@index');
+    
     Route::post('logout', 'UserController@logout');
 });

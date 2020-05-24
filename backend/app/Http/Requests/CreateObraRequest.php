@@ -28,4 +28,10 @@ class CreateObraRequest extends FormRequest
             'user_id' => 'required'
         ];
     }
+    public function messages(){
+        return [
+            'required' => 'O campo :attribute é obrigatório',
+            'unique' => 'Nome já cadastrado em outra obra!'
+        ];
+    }
 }

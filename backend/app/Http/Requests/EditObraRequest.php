@@ -28,4 +28,9 @@ class EditObraRequest extends FormRequest
             'user_id' => 'required'
         ];
     }
+    public function messages(){
+        return [
+            'required' => 'O campo :attribute é obrigatório'
+        ];
+    }
 }

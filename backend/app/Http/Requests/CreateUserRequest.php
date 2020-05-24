@@ -29,4 +29,11 @@ class CreateUserRequest extends FormRequest
             'password' => 'required'
         ];
     }
+    public function messages(){
+        return [
+            'required' => 'O campo :attribute é obrigatório',
+            'unique' => 'Email já cadastrado em outra conta!',
+            'email' => 'O campo email não está no formato correto'
+        ];
+    }
 }
