@@ -54,6 +54,18 @@ class ImagemsController extends Controller
             $json = $request->getContent();
             $atualizacao = json_decode( $json, JSON_OBJECT_AS_ARRAY);
             $imagem->filtro = $atualizacao['filtro'];
+            $imagem->obra_id = $atualizacao['obra_id'];
+            if($atualizacao['imagem']){
+                //apaga imagem anterior
+                Storage::delete($imagem->imagem);
+    
+                //cria a imagem;
+                $image = $atualizacao['imagem']->store('imagems');
+    
+                //atualiza o endereço da imagem no banco
+                $imagem->imagem = $image;
+                $imagem->save();
+            }
             $return = $imagem->update() ? [$id => 'Imagem atualizada com sucesso'] : [$id => 'Erro ao atualizar a imagem'];
         } else {
             $return = [$id => 'Imagem não existe'];

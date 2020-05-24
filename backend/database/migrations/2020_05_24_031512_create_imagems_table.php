@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObrasTable extends Migration
+class CreateImagemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateObrasTable extends Migration
      */
     public function up()
     {
-        Schema::create('obras', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome');
+        Schema::create('imagems', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('imagem');
+            $table->string('filtro');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateObrasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obras');
+        Schema::dropIfExists('imagems');
     }
 }
