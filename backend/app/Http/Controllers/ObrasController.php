@@ -7,6 +7,7 @@ use App\Obra;
 use App\Imagem;
 use App\Http\Requests\CreateObraRequest;
 use App\Http\Requests\EditObraRequest;
+use JWTAuth;
 
 class ObrasController extends Controller
 {
@@ -54,6 +55,7 @@ class ObrasController extends Controller
             $json = $request->getContent();
             $atualizacao = json_decode( $json, JSON_OBJECT_AS_ARRAY);
             $obra->nome = $atualizacao['nome'];
+            $obra->user_id = $atualizacao['user_id'];
             $return = $obra->update() ? [$id => 'Obra atualizada com sucesso'] : [$id => 'Erro ao atualizar a obra'];
         } else {
             $return = [$id => 'Obra não existe'];
