@@ -8,10 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
+  private db: string = 'http://127.0.0.1:8000/api/user'
+
   constructor(private http: HttpClient) { }
 
-  public getUser(id: number): void {
-    
+  public getUser(): void {
+    this.http.get(this.db).subscribe(user => {
+      console.log(user)
+    })
   }
 
 }

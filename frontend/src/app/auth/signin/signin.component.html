@@ -1,0 +1,22 @@
+<form [formGroup]="signinForm" (ngSubmit)="signIn()" class="signin">
+
+  <h2>Login</h2>
+
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input formControlName="email" type="email" class="form-control" name="email">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input formControlName="password" type="password" class="form-control" name="password">
+    </div>
+
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" name="check" required>
+      <label class="form-check-label" for="check">Lembre-me</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+
+</form>

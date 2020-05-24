@@ -4,11 +4,21 @@ import { HomeComponent } from './views/home/home.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { UserObrasComponent } from './components/user/user-obras/user-obras.component';
 import { UserObraCreateComponent } from './components/user/user-obra-create/user-obra-create.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'auth/signin',
+    component: SigninComponent
+  },
+  {
+    path: 'auth/signup',
+    component: SignupComponent
   },
   {
     path: 'user/perfil',

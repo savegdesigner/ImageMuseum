@@ -10,11 +10,7 @@ import Obra from 'src/app/models/Obra.model';
 export class UserObraCreateComponent implements OnInit {
 
   private obra: Obra
-  private userId: number = 1
-
-  public form: FormGroup = new FormGroup({
-    name: new FormControl()
-  })
+  private userId: number 
 
   constructor() { }
 
