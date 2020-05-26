@@ -56,4 +56,10 @@ class UserController extends Controller
             'user_id' => auth()->user()->id
         ]);
     }
+
+    public function getUser($id){
+
+        $user = User::find($id);
+        return response()->json($user, 200);
+    }
 }

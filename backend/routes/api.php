@@ -6,6 +6,7 @@ Route::group(['prefix' => 'museum'], function(){
     Route::post('/user/signup', 'UserController@signup');
     Route::post('/user/signin', 'UserController@signin');
     Route::get('/user', 'UserController@index');
+    Route::get('/user/{id}', 'UserController@getUser');
 });
 
 Route::group(['middleware' => ['apiJwt'], 'prefix' => 'museum'], function () {
