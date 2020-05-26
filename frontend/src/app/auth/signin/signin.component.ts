@@ -37,6 +37,7 @@ export class SigninComponent implements OnInit {
         .subscribe(response => {
           this.authService.setToken(response.access_token)
           this.userService.setId(response.user_id)
+          this.userService.checkUserActive()
           this.router.navigate(['home']),
           error => console.log(error)
         })
