@@ -4,17 +4,22 @@
   
       <div class="form-group">
         <label for="name">Nome</label>
-        <input placeholder="Nome do usuário" type="name" class="form-control" name="name" disabled>
+        <input value="{{user.name}}" type="name" class="form-control" name="name" disabled>
       </div>
   
       <div class="form-group">
         <label for="email">E-mail</label>
-        <input placeholder="user@email.com" type="text" class="form-control" name="email" disabled>
+        <input value="{{user.email}}" type="text" class="form-control" name="email" disabled>
       </div>
 
       <div class="form-group">
-        <label for="password">Obras</label>
-        <input placeholder="2" type="password" class="form-control" name="password" disabled>
+        <label for="obras">Usuário desde</label>
+        <input value="{{user.created_at | date}}" type="obras" class="form-control" name="obras" disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="obras">Obras</label>
+        <input placeholder="2" type="obras" class="form-control" name="obras" disabled>
       </div>
   
   </div>

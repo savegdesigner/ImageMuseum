@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import User from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-perfil',
@@ -7,6 +8,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
+
+  public user: User = new User('', '')
 
   constructor(private userService: UserService) { }
 
@@ -16,8 +19,9 @@ export class PerfilComponent implements OnInit {
 
   public getUser(): void {
     this.userService.getUser()
-      .subscribe(res => {
-        console.log(res)
+      .subscribe(user => {
+        this.user = user,
+        error => console.log(error)
       })
   }
 
