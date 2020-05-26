@@ -29,4 +29,9 @@ class CreateImagemRequest extends FormRequest
             'obra_id' => 'required'
         ];
     }
+    public function messages(){
+        return [
+            'required' => 'O campo :attribute é obrigatório'
+        ];
+    }
 }

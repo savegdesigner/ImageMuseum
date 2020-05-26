@@ -28,4 +28,10 @@ class LoginUserRequest extends FormRequest
             'password' => 'required'
         ];
     }
+    public function messages(){
+        return [
+            'required' => 'O campo :attribute é obrigatório',
+            'email' => 'O campo email não está no formato correto'
+        ];
+    }
 }
