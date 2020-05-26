@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  public userActive
+  
+  public userActive: boolean
 
   constructor(
     private authService: AuthService,
@@ -19,11 +19,12 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.userService.checkUserActive()
+    this.userService.userActive
       .subscribe(res => {
-        this.userActive = res,
-        error => console.log(error)
+        this.userActive = res
       })
+
+      this.isLoggedIn()
 
   }
 
@@ -31,8 +32,21 @@ export class HeaderComponent implements OnInit {
     this.authService.logout()
       .subscribe(res => {
         console.log(res)
+        this.userService.logoutUser()
+        this.userService.checkUserActive(),
+        error => console.log(error)
       })
     this.router.navigate(['home'])
+
+  }
+
+  public isLoggedIn(): void {
+    if(localStorage.getItem('userToken')){
+      this.userActive = true
+    }else{
+      this.userActive = false
+    }
+
   }
 
 }
