@@ -33,11 +33,11 @@ export class SigninComponent implements OnInit {
     
       this.authService.signin(user)
         .subscribe(response => {
-          console.log(response)
+          this.authService.setToken(response.access_token)
           this.router.navigate(['home']),
           error => console.log(error)
         })
-
+        
   }
 
 }

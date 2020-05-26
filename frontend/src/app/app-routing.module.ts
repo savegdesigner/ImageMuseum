@@ -6,6 +6,7 @@ import { UserObrasComponent } from './components/user/user-obras/user-obras.comp
 import { UserObraCreateComponent } from './components/user/user-obra-create/user-obra-create.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -22,15 +23,18 @@ const routes: Routes = [
   },
   {
     path: 'user/perfil',
-    component: PerfilComponent
+    component: PerfilComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'user/obras',
-    component: UserObrasComponent
+    component: UserObrasComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'user/obras/create',
-    component: UserObraCreateComponent
+    component: UserObraCreateComponent,
+    canActivate: [AuthGuard]
   }
 
 

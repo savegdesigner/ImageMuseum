@@ -11,6 +11,14 @@ export class PerfilComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUser()
+  }
+
+  public getUser(): void {
+    this.userService.getUser()
+      .subscribe(res => {
+        console.log(res)
+      })
   }
 
 }
