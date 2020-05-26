@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import User from '../models/User.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  private userId: number
   private db: string = '/api/museum/user'
 
   constructor(private http: HttpClient) { }
@@ -22,6 +23,19 @@ export class UserService {
           'Authorization' : `Bearer ${token}`
         })}
       )
+  }
+
+  public checkUserActive(): Observable<any> {
+    return of(localStorage.getItem('userToken')) 
+  }
+
+  public setId(id: number): void {
+    this.userId = id
+  }
+
+  public logoutUser(): void {
+    localStorage.removeItem('userToken')
+
   }
 
 }

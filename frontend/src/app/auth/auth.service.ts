@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import User from '../models/User.model';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -40,10 +40,6 @@ export class AuthService {
     this.token = token
   }
 
-  public checkUserActive(): Observable<any> {
-    return of(localStorage.getItem('userToken')) 
-  }
-
   public authenticated(): boolean {
     if(this.token === undefined && localStorage.getItem('userToken') != null){
       this.token = localStorage.getItem('userToken')
@@ -58,8 +54,17 @@ export class AuthService {
 
   }
 
-  public logout(): void {
+  public logout(): Observable<any> {
+    let token = localStorage.getItem('userToken')
 
+    return this.http.post(
+      '/api/museum/logout',
+      {headers: new HttpHeaders({
+        'X-Requested-With' : 'XMLHttpRequest',
+        'Authorization': `Bearer ${token}`
+      })}
+    )
+    
   }
 
 }
