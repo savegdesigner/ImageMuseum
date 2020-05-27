@@ -1,7 +1,7 @@
 import Obra from './Obra.model'
 
 class User {
-    private email: string
+    public email: string
     private password: string
     public name: string
 

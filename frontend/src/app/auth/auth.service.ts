@@ -57,12 +57,15 @@ export class AuthService {
   public logout(): Observable<any> {
     let token = localStorage.getItem('userToken')
 
+    let opts = {
+      headers: new HttpHeaders({
+        'X-Requested-With' : 'HttpClient'
+      })
+    }
+
     return this.http.post(
       '/api/museum/logout',
-      {headers: new HttpHeaders({
-        'X-Requested-With' : 'XMLHttpRequest',
-        'Authorization': `Bearer ${token}`
-      })}
+      opts
     )
     
   }

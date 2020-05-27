@@ -1,5 +1,49 @@
 <h2>Criar Obra</h2>
 
 <div class="create-obra">
+
+    <div class="form-group">
+        <label for="name">Nome da obra</label>
+        <input type="text" class="form-control" name="name">
+    </div>
+
+    <div class="form-group">
+        <label for="imagem">Escolha uma imagem</label>
+        <input (change)="getImageFile($event)" type="file" class="form-control-file" id="imagem">
+    </div>
+
+    <form [formGroup]="editorForm" (ngSubmit)="aplicar()" class="editor">
+        <div class="sliders">
+            <div id="imageEditor">
+              <p>
+                <label for="gs">Grayscale</label>
+                <input formControlName="grayscale"  id="gs" name="gs" type="range" min="0" max="100" value="0">
+              </p>
+          
+              <p>
+                <label for="huer">Hue Rotate</label>
+                <input formControlName="hue" id="huer" name="huer" type="range" min="0" max="360" value="0">
+              </p>
+          
+              <p>
+                <label for="saturate">Saturate</label>
+                <input formControlName="saturate" id="saturate" name="saturate" type="range" min="0" max="500" value="100">
+              </p>
+          
+              <p>
+                <label for="sepia">Sepia</label>
+                <input formControlName="sepia" id="sepia" name="sepia" type="range" min="0" max="100" value="0">
+              </p>
+          
+              <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
+          
+            </div>
+          </div>	
+
+          <div id="imageContainer" class="center">
+            <img [ngStyle]="imageStyle" class="edited-image" src="../../../../assets/img/default.gif">
+        </div>
+
+    </form>
     
 </div>

@@ -8,22 +8,24 @@ import { Observable, of, Subject } from 'rxjs';
 })
 export class UserService {
 
+  public token: string
   public userId: number
   private db: string = '/api/museum/user'
   public userActive = new Subject<boolean>()
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.userId = parseInt(localStorage.getItem('userId'))
+    this.token = localStorage.getItem('userToken')
+  }
 
   public getUser(): Observable<any> {
-    let token = localStorage.getItem('userToken')
-
     return this.http.get(
-        this.db,
+        `${this.db}/${this.userId}`,
         {headers: new HttpHeaders({
-          'X-Requested-With' : 'XMLHttpRequest',
-          'Authorization' : `Bearer ${token}`
+          'X-Requested-With' : 'XMLHttpRequest'
         })}
       )
+      
   }
 
   public checkUserActive(): void {
