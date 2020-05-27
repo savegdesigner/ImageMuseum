@@ -2,9 +2,30 @@
     max-width: 100%;
     display: flex;
     flex-flow: column wrap;
+
+    .selecionar{
+      text-align: right;
+    }
 }
 
 .editor{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .options-buttons{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+
+      button{
+        margin: 0px 8px;
+        margin-bottom: 4px!important;
+      }
+    }
+
     .url-box {
         background-color: transparent;
         display: inline-block;
@@ -43,7 +64,7 @@
       /* Styles for image container*/
       
       #imageContainer {
-        border: 2px solid grey;
+        border: 1px solid #b8b8b8;
         border-radius: 10px;
         padding: 5px;
         width: 65%;
@@ -60,8 +81,7 @@
       /* Styles for sliders*/
       
       .sliders {
-        float: left;
-        border: 2px solid grey;
+        border: 1px solid #b8b8b8;
         border-radius: 10px;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -152,6 +172,12 @@
 
       .edited-image{
           max-width: 600px;
-          max-height: 500px;
+          max-height: 350px;
       }
+}
+
+@media screen and (max-width: 800px){
+  .editor{
+    flex-flow: column wrap;
+  }
 }

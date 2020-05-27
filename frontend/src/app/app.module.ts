@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms'
+
 
 // Components
 import { AppComponent } from './app.component';
@@ -36,7 +38,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     NgbModule,
     NgbNavModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {

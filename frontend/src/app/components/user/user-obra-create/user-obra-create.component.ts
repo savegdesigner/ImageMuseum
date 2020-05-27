@@ -9,9 +9,11 @@ import Obra from 'src/app/models/Obra.model';
 })
 export class UserObraCreateComponent implements OnInit {
 
-  public obra: Obra
+  public obraName: string
   public userId: string 
   public imageStyle: object
+  public img
+  public editorOn: boolean = false
 
   public editorForm: FormGroup = new FormGroup({
     grayscale: new FormControl(),
@@ -27,6 +29,18 @@ export class UserObraCreateComponent implements OnInit {
     
   }
 
+  public getImageFile(event): void {
+    let reader = new FileReader()
+    reader.readAsDataURL(event.target.files[0])
+
+    reader.onload = () => {
+      this.img = reader.result
+    }
+
+    this.editorOn = true
+
+  }
+
   public aplicar(): void {
     let grayscale = this.editorForm.value.grayscale || 0
     let hue = this.editorForm.value.hue || 0
@@ -37,12 +51,20 @@ export class UserObraCreateComponent implements OnInit {
       'filter': `grayscale(${grayscale}%) hue-rotate(${hue}deg) saturate(${saturate}%) sepia(${sepia}%)`
     }
 
-      console.log(this.imageStyle)
-
   }
 
-  public getImageFile(event): void {
-    console.log(event.target.files)
+  public resetImageStyle(): void {
+    
+  }
+
+  public createObra(): void {
+    console.log({
+      'userId': this.userId,
+      'obraName': this.obraName,
+      'imgFile': this.img,
+      'imageStyle': this.imageStyle
+    })
+    
   }
 
 }
