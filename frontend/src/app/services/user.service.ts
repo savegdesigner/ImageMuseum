@@ -22,8 +22,7 @@ export class UserService {
     return this.http.get(
         `${this.db}/${this.userId}`,
         {headers: new HttpHeaders({
-          'X-Requested-With' : 'XMLHttpRequest',
-          'Authorization' : `Bearer ${this.token}`
+          'X-Requested-With' : 'XMLHttpRequest'
         })}
       )
       
