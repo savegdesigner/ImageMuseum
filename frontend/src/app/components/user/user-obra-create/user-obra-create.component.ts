@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import Obra from 'src/app/models/Obra.model';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import Imagem from 'src/app/models/Imagem.model';
 
 @Component({
   selector: 'app-user-obra-create',
@@ -14,6 +16,8 @@ export class UserObraCreateComponent implements OnInit {
   public imageStyle: object
   public img
   public editorOn: boolean = false
+  public images : Array<Imagem> = []
+  public obra: Obra = new Obra
 
   public editorForm: FormGroup = new FormGroup({
     grayscale: new FormControl(),
@@ -22,7 +26,12 @@ export class UserObraCreateComponent implements OnInit {
     sepia: new FormControl()
   })
 
-  constructor() { }
+  constructor(private carouselConfig: NgbCarouselConfig) { 
+    this.carouselConfig.interval = 5000;
+    this.carouselConfig.wrap = false;
+    this.carouselConfig.keyboard = false;
+    this.carouselConfig.pauseOnHover = true;
+  }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId')
@@ -57,14 +66,21 @@ export class UserObraCreateComponent implements OnInit {
     
   }
 
+  public selectObra(): void {
+
+    let imagem = new Imagem
+    imagem.style = this.imageStyle 
+    imagem.file = this.img
+    this.images.push(imagem)
+
+    this.obra.name = this.obraName
+    this.obra.user_id = parseInt(this.userId)
+    this.obra.images = this.images
+
+  }
+
   public createObra(): void {
-    console.log({
-      'userId': this.userId,
-      'obraName': this.obraName,
-      'imgFile': this.img,
-      'imageStyle': this.imageStyle
-    })
-    
+    console.log(this.obra)
   }
 
 }

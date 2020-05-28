@@ -8,6 +8,20 @@
     }
 }
 
+.obra-preview{
+  height: 800px;
+
+  .image-preview{
+    width: 100%!important;
+    max-height: 700px!important;
+  }
+
+  #create-obra-button{
+    margin-top: 15px;
+  }
+
+}
+
 .editor{
 
     display: flex;

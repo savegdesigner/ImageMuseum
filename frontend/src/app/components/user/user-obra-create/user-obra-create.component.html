@@ -51,7 +51,28 @@
     </form>
 
     <div *ngIf="editorOn" class="selecionar">
-      <button id="selecionar-btn" (click)="createObra()" class="btn btn-success">Selecionar</button>
+      <button id="selecionar-btn" (click)="selectObra()" class="btn btn-success">Selecionar</button>
     </div>
     
+</div>
+
+<div *ngIf="images[0]" class="obra-preview">
+
+<h2>Visualização da obra</h2>
+
+<ngb-carousel>
+
+  <ng-template ngbSlide *ngFor="let image of images">
+    <div class="picsum-img-wrapper">
+      <img [ngStyle]="image.style" class="image-preview" src="{{image.file}}" alt="Random first slide">
+    </div>
+    <div class="carousel-caption">
+      <h3>{{obraName}}</h3>
+    </div>
+  </ng-template>
+
+</ngb-carousel>
+
+<button id="create-obra-button" (click)="createObra()" class="btn btn-primary">Criar obra</button>
+
 </div>

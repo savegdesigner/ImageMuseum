@@ -4,7 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { FormsModule } from '@angular/forms'
-
+import { SignupComponent } from './auth/signup/signup.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -12,14 +13,13 @@ import { HeaderComponent } from './template/header/header.component';
 import { HomeComponent } from './views/home/home.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { UserObrasComponent } from './components/user/user-obras/user-obras.component';
+import { UserObraCreateComponent } from './components/user/user-obra-create/user-obra-create.component';
+import { SigninComponent } from './auth/signin/signin.component';
 
 // Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserObraCreateComponent } from './components/user/user-obra-create/user-obra-create.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { TokenInterceptorService } from './services/token-interceptor.service';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     NgbNavModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgbCarouselModule
   ],
   providers: [
     {
