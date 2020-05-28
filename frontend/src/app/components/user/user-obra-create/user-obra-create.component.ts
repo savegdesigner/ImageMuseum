@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import Obra from 'src/app/models/Obra.model';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import Imagem from 'src/app/models/Imagem.model';
 
 @Component({
   selector: 'app-user-obra-create',
@@ -9,9 +11,13 @@ import Obra from 'src/app/models/Obra.model';
 })
 export class UserObraCreateComponent implements OnInit {
 
-  public obra: Obra
+  public obraName: string
   public userId: string 
   public imageStyle: object
+  public img
+  public editorOn: boolean = false
+  public images : Array<Imagem> = []
+  public obra: Obra = new Obra
 
   public editorForm: FormGroup = new FormGroup({
     grayscale: new FormControl(),
@@ -20,11 +26,28 @@ export class UserObraCreateComponent implements OnInit {
     sepia: new FormControl()
   })
 
-  constructor() { }
+  constructor(private carouselConfig: NgbCarouselConfig) { 
+    this.carouselConfig.interval = 5000;
+    this.carouselConfig.wrap = false;
+    this.carouselConfig.keyboard = false;
+    this.carouselConfig.pauseOnHover = true;
+  }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId')
     
+  }
+
+  public getImageFile(event): void {
+    let reader = new FileReader()
+    reader.readAsDataURL(event.target.files[0])
+
+    reader.onload = () => {
+      this.img = reader.result
+    }
+
+    this.editorOn = true
+
   }
 
   public aplicar(): void {
@@ -37,12 +60,27 @@ export class UserObraCreateComponent implements OnInit {
       'filter': `grayscale(${grayscale}%) hue-rotate(${hue}deg) saturate(${saturate}%) sepia(${sepia}%)`
     }
 
-      console.log(this.imageStyle)
+  }
+
+  public resetImageStyle(): void {
+    
+  }
+
+  public selectObra(): void {
+
+    let imagem = new Imagem
+    imagem.style = this.imageStyle 
+    imagem.file = this.img
+    this.images.push(imagem)
+
+    this.obra.name = this.obraName
+    this.obra.user_id = parseInt(this.userId)
+    this.obra.images = this.images
 
   }
 
-  public getImageFile(event): void {
-    console.log(event.target.files)
+  public createObra(): void {
+    console.log(this.obra)
   }
 
 }

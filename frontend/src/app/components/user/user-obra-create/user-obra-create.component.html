@@ -4,15 +4,15 @@
 
     <div class="form-group">
         <label for="name">Nome da obra</label>
-        <input type="text" class="form-control" name="name">
+        <input [(ngModel)]="obraName" type="text" class="form-control" name="name">
     </div>
 
     <div class="form-group">
         <label for="imagem">Escolha uma imagem</label>
-        <input (change)="getImageFile($event)" type="file" class="form-control-file" id="imagem">
+        <input (change)="getImageFile($event)" type="file" accept='image/*' class="form-control-file" id="imagem">
     </div>
 
-    <form [formGroup]="editorForm" (ngSubmit)="aplicar()" class="editor">
+    <form *ngIf="editorOn" [formGroup]="editorForm" (ngSubmit)="aplicar()" class="editor">
         <div class="sliders">
             <div id="imageEditor">
               <p>
@@ -34,16 +34,45 @@
                 <label for="sepia">Sepia</label>
                 <input formControlName="sepia" id="sepia" name="sepia" type="range" min="0" max="100" value="0">
               </p>
-          
-              <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
-          
+
             </div>
+
+            <div class="options-buttons">
+              <button (click)="resetImageStyle()" class="btn btn-danger mb-2">Resetar</button>
+              <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
+            </div>
+
           </div>	
 
-          <div id="imageContainer" class="center">
-            <img [ngStyle]="imageStyle" class="edited-image" src="../../../../assets/img/default.gif">
-        </div>
+          <div *ngIf="img" id="imageContainer" class="center">
+            <img [ngStyle]="imageStyle" class="edited-image" [src]="img">
+          </div>
 
     </form>
+
+    <div *ngIf="editorOn" class="selecionar">
+      <button id="selecionar-btn" (click)="selectObra()" class="btn btn-success">Selecionar</button>
+    </div>
     
+</div>
+
+<div *ngIf="images[0]" class="obra-preview">
+
+<h2>Visualização da obra</h2>
+
+<ngb-carousel>
+
+  <ng-template ngbSlide *ngFor="let image of images">
+    <div class="picsum-img-wrapper">
+      <img [ngStyle]="image.style" class="image-preview" src="{{image.file}}" alt="Random first slide">
+    </div>
+    <div class="carousel-caption">
+      <h3>{{obraName}}</h3>
+    </div>
+  </ng-template>
+
+</ngb-carousel>
+
+<button id="create-obra-button" (click)="createObra()" class="btn btn-primary">Criar obra</button>
+
 </div>
