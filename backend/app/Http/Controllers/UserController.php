@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\EditUserRequest;
+use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
 
@@ -61,5 +63,20 @@ class UserController extends Controller
 
         $user = User::find($id);
         return response()->json($user, 200);
+    }
+
+    public function update(EditUserRequest $request){
+        $user = auth()->user();
+        $user->name = $request->name;
+        
+        if($user->email != $request->email){
+            $user->email = $request->email;
+            $user->email_verified_at = null;
+        }
+        if($request->password)
+            $user->password = Hash::make($request->password);
+        
+        $user->save();
+        return response()->json(['mensagem' => 'Usuário atualizado com sucesso!'], 200);
     }
 }
