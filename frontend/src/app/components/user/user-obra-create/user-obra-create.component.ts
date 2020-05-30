@@ -4,6 +4,7 @@ import Obra from 'src/app/models/Obra.model';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import Imagem from 'src/app/models/Imagem.model';
 import { ObraService } from 'src/app/services/obra.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-obra-create',
@@ -29,7 +30,8 @@ export class UserObraCreateComponent implements OnInit {
 
   constructor(
     private carouselConfig: NgbCarouselConfig,
-    private obraService: ObraService
+    private obraService: ObraService,
+    private router: Router
     ) { 
     this.carouselConfig.interval = 5000;
     this.carouselConfig.wrap = false;
@@ -86,7 +88,9 @@ export class UserObraCreateComponent implements OnInit {
   public createObra(): void {
     this.obraService.createObra(this.obra)
       .subscribe(res => {
-        console.log(res),
+        console.log(res)
+        console.log(this.obra)
+        this.router.navigate(['user/obras']),
         error => console.log(error)
       })
 

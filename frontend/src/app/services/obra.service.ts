@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class ObraService {
 
-  private db: string = 'http://127.0.0.1:8000/api/museum/obras'
+  private db: string = 'http://127.0.0.1:8000/api/museum'
 
   constructor(private http: HttpClient) { }
 
   public createObra(obra: Obra): Observable<any> {
 
     return this.http.post(
-      `${this.db}`,
+      `${this.db}/obras`,
       obra,
        {headers: new HttpHeaders({
         'X-Requested-With' : 'XMLHttpRequest'
@@ -26,7 +26,7 @@ export class ObraService {
 
   public readObras(): Observable<any> {
     return this.http.get(
-      this.db,
+      `${this.db}/obras`,
       {headers: new HttpHeaders({
         'X-Requested-With' : 'XMLHttpRequest'
       })}
@@ -36,7 +36,7 @@ export class ObraService {
 
   public readObraById(id: number): Observable<any> {
     return this.http.get(
-      `${this.db}/${id}`,
+      `${this.db}/userObras/${id}`,
       {headers: new HttpHeaders({
         'X-Requested-With' : 'XMLHttpRequest'
       })})
@@ -47,7 +47,13 @@ export class ObraService {
 
   }
 
-  public deleteObra(id: number): void {
+  public deleteObra(id: number): Observable<any> {
+    return this.http.delete(
+      `${this.db}/obras/${id}`,
+      {headers: new HttpHeaders({
+        'X-Requested-With' : 'XMLHttpRequest'
+      })})
 
   }
+
 }

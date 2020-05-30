@@ -1,20 +1,26 @@
-<div class="container">
+<div class="wrapper">
 
         <h1>Minhas obras</h1>
     
         <div *ngFor="let obra of obras" class="obras-view">
-    
-            <h4>{{obra.nome}}</h4>
-    
-            <ngb-carousel>
-    
-                <ng-template ngbSlide>
-                  <div class="picsum-img-wrapper">
-                    <img class="image-preview" src="../../../assets/img/default.gif" alt="Carousel">
-                  </div>
-                </ng-template>
-              
-              </ngb-carousel>
-        </div>
+
+          <h4>{{obra.nome}}</h4> 
+
+          <div class="buttons">
+            <button (click)="delete(obra.id)" class="btn btn-danger">Deletar</button>
+            <button (click)="update(obra.id)" class="btn btn-warning">Editar</button>
+          </div>
+  
+          <ngb-carousel>
+  
+              <ng-template *ngFor="let imagem of obra.imagems" ngbSlide>
+                <div class="picsum-img-wrapper">
+                  <img [ngStyle]="{'filter': imagem.filtro}" src="http://127.0.0.1:8000/storage/{{imagem.imagem}}" alt="Carousel">
+                </div>
+              </ng-template>  
+            
+          </ngb-carousel>
+          
+      </div>
 
 </div>

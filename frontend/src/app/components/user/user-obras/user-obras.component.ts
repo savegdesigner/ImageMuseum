@@ -37,4 +37,16 @@ export class UserObrasComponent implements OnInit {
       })
   }
 
+  public update(id: number): void {
+    
+  }
+
+  public delete(id: number): void{
+    this.obraService.deleteObra(id)
+      .subscribe(res => {
+        console.log(res),
+        error => console.log(error)
+      })
+  }
+
 }
