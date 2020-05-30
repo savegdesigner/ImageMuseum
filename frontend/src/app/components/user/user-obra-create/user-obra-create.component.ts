@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms'
 import Obra from 'src/app/models/Obra.model';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import Imagem from 'src/app/models/Imagem.model';
+import { ObraService } from 'src/app/services/obra.service';
 
 @Component({
   selector: 'app-user-obra-create',
@@ -26,7 +27,10 @@ export class UserObraCreateComponent implements OnInit {
     sepia: new FormControl()
   })
 
-  constructor(private carouselConfig: NgbCarouselConfig) { 
+  constructor(
+    private carouselConfig: NgbCarouselConfig,
+    private obraService: ObraService
+    ) { 
     this.carouselConfig.interval = 5000;
     this.carouselConfig.wrap = false;
     this.carouselConfig.keyboard = false;
@@ -80,7 +84,12 @@ export class UserObraCreateComponent implements OnInit {
   }
 
   public createObra(): void {
-    console.log(this.obra)
+    this.obraService.createObra(this.obra)
+      .subscribe(res => {
+        console.log(res),
+        error => console.log(error)
+      })
+
   }
 
 }
