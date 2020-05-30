@@ -50,7 +50,7 @@ class ObrasController extends Controller
     }
 
     public function getObrasUser($id){
-        $obras = Obra::all()->where('user_id', $id);
+        $obras = Obra::where('user_id', $id)->get();
         foreach($obras as $obra){
             $obra['imagems'] = $obra->imagems;
         }
@@ -92,11 +92,19 @@ class ObrasController extends Controller
     public function destroy($id)
     {
         $obra = Obra::find($id);
+        $imagens = Imagem::all()->where('obra_id', $id);
         if($obra){
-            $return = $obra->delete() ? [$id => 'Obra excluída com sucesso']:[$id => 'Erro ao excluir a obra'];
+            if($imagens){
+                foreach($imagens as $imagem){
+                    $imagem->delete();
+                }
+                $return = $obra->delete() ? [$id => 'Obra e imagens excluídas com sucesso']:[$id => 'Erro ao excluir a obra'];
+            } 
+            
         } else{
             $return = [$id => 'Obra não existe'];
         }
+
         return json_encode($return);
     }
 
