@@ -6,10 +6,10 @@ Route::group(['prefix' => 'museum'], function(){
     Route::post('/user/signup', 'UserController@signup');
     Route::post('/user/signin', 'UserController@signin');
     Route::get('/user', 'UserController@index');
+    Route::get('/obras','ObrasController@index');
 });
 
 Route::group(['middleware' => ['apiJwt'], 'prefix' => 'museum'], function () {
-    Route::get('/obras','ObrasController@index');
     Route::get('/obras/{id}','ObrasController@show');
     Route::post('/obras','ObrasController@store');
     Route::put('/obras/{id}','ObrasController@update');

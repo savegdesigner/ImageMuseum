@@ -7,11 +7,11 @@
 
         <ngb-carousel>
 
-            <ng-template ngbSlide>
+            <ng-template *ngFor="let imagem of obra.imagems" ngbSlide>
               <div class="picsum-img-wrapper">
-                <img class="image-preview" src="../../../assets/img/default.gif" alt="Carousel">
+                <img [ngStyle]="{'filter': imagem.filtro}" class="image-preview" src="http://127.0.0.1:8000/storage/{{imagem.imagem}}" alt="Carousel">
               </div>
-            </ng-template>
+            </ng-template>  
           
           </ngb-carousel>
     </div>
