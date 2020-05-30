@@ -11,6 +11,7 @@ Route::group(['prefix' => 'museum'], function(){
 
 Route::group(['middleware' => ['apiJwt'], 'prefix' => 'museum'], function () {
     Route::get('/obras/{id}','ObrasController@show');
+    Route::get('/userObras/{id}', 'ObrasController@getObrasUser');
     Route::post('/obras','ObrasController@store');
     Route::put('/obras/{id}','ObrasController@update');
     Route::delete('/obras/{id}','ObrasController@destroy');
