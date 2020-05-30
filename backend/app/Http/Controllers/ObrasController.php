@@ -25,8 +25,7 @@ class ObrasController extends Controller
 
     public function store(Request $request)
     {   
-        $requestData = $request->all();
-        $obra = $requestData['obra'];
+        $obra = $request->all();
         $newObra = Obra::create([
             'nome' => $obra['name'],
             'user_id' => $obra['user_id']
@@ -50,9 +49,11 @@ class ObrasController extends Controller
     {
         $imagens = Obra::find($id)->imagems;
         $obra = Obra::find($id);
-        $array = [ $imagens, $obra];
+        $array = [$obra];
+        $atributeImage = array($imagens);
+        array_push($array, $atributeImage);
         if($obra){
-            return response()->json(['obra' => $array[1], 'imagems' => $array[0]]);
+            return response()->json($array);
         } else{
             return json_encode([$id => 'Obra não existe']);
         }
@@ -95,7 +96,7 @@ class ObrasController extends Controller
             $extension = explode('/', $base64);
             $extension = explode(';', $extension[1]);
             $extension = '.'.$extension[0];
-            $name = time().$extension;
+            $name = rand(1, time()).$extension;
             //obtem o arquivo
             $separatorFile = explode(',', $base64);
             $file = $separatorFile[1];
