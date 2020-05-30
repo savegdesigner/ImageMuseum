@@ -1,3 +1,22 @@
 <div class="wrapper">
     <h1>Bem vindo ao Museu de Imagens</h1>
+
+    <div *ngFor="let obra of obras" class="obras-view">
+
+        <h4>Nome da Obra</h4>
+
+        <ngb-carousel>
+
+            <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img class="image-preview" src="../../../assets/img/default.gif" alt="Carousel">
+              </div>
+              <div class="carousel-caption">
+                <h3>Teste</h3>
+              </div>
+            </ng-template>
+          
+          </ngb-carousel>
+    </div>
+
 </div>

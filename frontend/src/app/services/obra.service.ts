@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Obra from '../models/Obra.model';
 import { Observable } from 'rxjs';
 
@@ -8,12 +8,19 @@ import { Observable } from 'rxjs';
 })
 export class ObraService {
 
-  private db: string = 'http://localhost:8000/api/museum/obras'
+  private db: string = 'http://127.0.0.1:8000/api/museum/obras'
 
   constructor(private http: HttpClient) { }
 
-  public createObra(obra: Obra): Observable<Obra> {
-    return this.http.post<Obra>(`${this.db}`, obra)
+  public createObra(obra: Obra): Observable<any> {
+
+    return this.http.post(
+      `${this.db}`,
+      obra,
+       {headers: new HttpHeaders({
+        'X-Requested-With' : 'XMLHttpRequest'
+      })}
+       )
 
   }
 
