@@ -1,4 +1,20 @@
 <div class="container">
-    <h2>Suas Obras</h2>
+
+        <h1>Minhas obras</h1>
+    
+        <div *ngFor="let obra of obras" class="obras-view">
+    
+            <h4>{{obra.nome}}</h4>
+    
+            <ngb-carousel>
+    
+                <ng-template ngbSlide>
+                  <div class="picsum-img-wrapper">
+                    <img class="image-preview" src="../../../assets/img/default.gif" alt="Carousel">
+                  </div>
+                </ng-template>
+              
+              </ngb-carousel>
+        </div>
 
 </div>

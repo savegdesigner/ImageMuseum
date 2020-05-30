@@ -24,11 +24,22 @@ export class ObraService {
 
   }
 
-  public readObras(): void {
+  public readObras(): Observable<any> {
+    return this.http.get(
+      this.db,
+      {headers: new HttpHeaders({
+        'X-Requested-With' : 'XMLHttpRequest'
+      })}
+      )
 
   }
 
-  public readObraById(id: number): void {
+  public readObraById(id: number): Observable<any> {
+    return this.http.get(
+      `${this.db}/${id}`,
+      {headers: new HttpHeaders({
+        'X-Requested-With' : 'XMLHttpRequest'
+      })})
 
   }
 
