@@ -49,6 +49,13 @@ class ObrasController extends Controller
         return $return;
     }
 
+    public function getObrasUser($id){
+        $obras = Obra::all()->where('user_id', $id);
+        foreach($obras as $obra){
+            $obra['imagems'] = $obra->imagems;
+        }
+        return $obras;
+    }
     public function show($id)
     {
         
