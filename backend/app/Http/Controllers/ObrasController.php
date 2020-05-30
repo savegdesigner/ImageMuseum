@@ -15,7 +15,11 @@ class ObrasController extends Controller
    
     public function index()
     {
-        return Obra::all();
+        $obras = Obra::all();
+        for($i = 0; $i < count($obras); $i++){
+            $obras[$i]->imagems; 
+        }
+        return $obras;
     }
 
     public function create()
@@ -47,13 +51,12 @@ class ObrasController extends Controller
 
     public function show($id)
     {
-        $imagens = Obra::find($id)->imagems;
-        $obra = Obra::find($id);
-        $array = [$obra];
-        $atributeImage = array($imagens);
-        array_push($array, $atributeImage);
-        if($obra){
-            return response()->json($array);
+        
+        if(Obra::find($id)){
+            $imagens = Obra::find($id)->imagems;
+            $obra = Obra::find($id);
+            $obra['imagens'] = $imagens;
+            return response()->json($obra);
         } else{
             return json_encode([$id => 'Obra não existe']);
         }
