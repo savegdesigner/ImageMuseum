@@ -21,12 +21,6 @@ class ObrasController extends Controller
         }
         return $obras;
     }
-
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {   
         $obra = $request->all();
@@ -68,27 +62,31 @@ class ObrasController extends Controller
             return json_encode([$id => 'Obra não existe']);
         }
     }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(EditObraRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $obra = Obra::find($id);
         if ($obra) {
-            $json = $request->getContent();
-            $atualizacao = json_decode( $json, JSON_OBJECT_AS_ARRAY);
-            $obra->nome = $atualizacao['nome'];
+            $atualizacao = $request->all();
+            $obra->nome = $atualizacao['name'];
             $obra->user_id = $atualizacao['user_id'];
+            $imagems = $atualizacao['images'];
+            Imagem::where('obra_id', $obra->id)->delete();
+            for ($i=0; $i < count($imagems); $i++) { 
+                $aImagem = $imagems[$i]['file'];
+                $saveImage = $this->uploadimage($aImagem);
+                $newImagem = Imagem::create([
+                    'imagem' => $saveImage,
+                    'filtro' => $imagems[$i]['style']['filter'],
+                    'obra_id' => $obra->id
+                ]);
+                $newImagem->save();
+            }
             $return = $obra->update() ? [$id => 'Obra atualizada com sucesso'] : [$id => 'Erro ao atualizar a obra'];
         } else {
             $return = [$id => 'Obra não existe'];
         }
         return json_encode($return);
     }
-
     public function destroy($id)
     {
         $obra = Obra::find($id);
@@ -107,7 +105,6 @@ class ObrasController extends Controller
 
         return json_encode($return);
     }
-
     public function uploadimage($imagem){
         if(strpos($imagem, ';base64')){
             $base64 = $imagem;
