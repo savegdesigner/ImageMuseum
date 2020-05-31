@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'
-import Obra from 'src/app/models/Obra.model';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import Imagem from 'src/app/models/Imagem.model';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ObraService } from 'src/app/services/obra.service';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
+import Imagem from 'src/app/models/Imagem.model';
+import Obra from 'src/app/models/Obra.model';
 
 @Component({
-  selector: 'app-user-obra-create',
-  templateUrl: './user-obra-create.component.html',
-  styleUrls: ['./user-obra-create.component.scss']
+  selector: 'app-user-obra-update',
+  templateUrl: './user-obra-update.component.html',
+  styleUrls: ['./user-obra-update.component.scss']
 })
-export class UserObraCreateComponent implements OnInit {
+export class UserObraUpdateComponent implements OnInit {
 
+  public obraId: string = this.route.snapshot.paramMap.get('id')
   public obraName: string
   public userId: string 
   public imageStyle: object
@@ -29,19 +29,30 @@ export class UserObraCreateComponent implements OnInit {
   })
 
   constructor(
-    private carouselConfig: NgbCarouselConfig,
     private obraService: ObraService,
-    private router: Router
-    ) { 
-    this.carouselConfig.interval = 5000;
-    this.carouselConfig.wrap = false;
-    this.carouselConfig.keyboard = false;
-    this.carouselConfig.pauseOnHover = true;
-  }
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId')
-    
+    this.setup()
+  }
+
+  public setup(): void {
+    let obraId = parseInt(this.obraId)
+    this.obraService.getObraById(obraId)
+      .subscribe(obra => {
+        console.log(obra)
+        this.obraName = obra.nome
+        obra.imagens.forEach(image => {
+          let imagemAntiga = new Imagem
+          imagemAntiga.style = {'filter': `${image.filtro}`}
+          imagemAntiga.src = `http://127.0.0.1:8000/storage/${image.imagem}`
+          this.images.push(imagemAntiga)
+        }),
+        error => console.log(error)
+      })
   }
 
   public getImageFile(event): void {
@@ -68,10 +79,6 @@ export class UserObraCreateComponent implements OnInit {
 
   }
 
-  public resetImageStyle(): void {
-    
-  }
-
   public selectObra(): void {
 
     let imagem = new Imagem
@@ -85,15 +92,14 @@ export class UserObraCreateComponent implements OnInit {
 
   }
 
-  public createObra(): void {
-    this.obraService.createObra(this.obra)
+  public update(): void {
+    let obraId = parseInt(this.obraId)
+    this.obraService.updateObra(obraId, this.obra)
       .subscribe(res => {
         console.log(res)
-        console.log(this.obra)
         this.router.navigate(['user/obras']),
         error => console.log(error)
       })
-
   }
 
 }

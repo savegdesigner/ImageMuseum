@@ -7,6 +7,7 @@ import { UserObraCreateComponent } from './components/user/user-obra-create/user
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth.guard';
+import { UserObraUpdateComponent } from './components/user/user-obra-update/user-obra-update.component';
 
 const routes: Routes = [
   {
@@ -35,8 +36,12 @@ const routes: Routes = [
     path: 'user/obras/create',
     component: UserObraCreateComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'user/obras/update/:id',
+    component: UserObraUpdateComponent,
+    canActivate: [AuthGuard]
   }
-
 
 ];
 
