@@ -4,11 +4,13 @@
     
         <div *ngFor="let obra of obras" class="obras-view">
 
-          <h4>{{obra.nome}}</h4> 
+          <div class="info-options">
+            <h4>{{obra.nome}}</h4> 
 
-          <div class="buttons">
-            <button (click)="delete(obra.id)" class="btn btn-danger">Deletar</button>
-            <button (click)="update(obra.id)" class="btn btn-warning">Editar</button>
+            <div class="buttons">
+              <button (click)="delete(obra.id)" class="btn btn-danger">Deletar</button>
+              <button (click)="navigateToUpdate(obra.id)" class="btn btn-warning">Editar</button>
+            </div>
           </div>
   
           <ngb-carousel>

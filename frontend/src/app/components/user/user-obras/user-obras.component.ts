@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ObraService } from 'src/app/services/obra.service';
 import Obra from 'src/app/models/Obra.model';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-obras',
@@ -15,7 +16,8 @@ export class UserObrasComponent implements OnInit {
 
   constructor(
     private carouselConfig: NgbCarouselConfig,
-    private obraService: ObraService
+    private obraService: ObraService,
+    private router: Router
     ) { 
     this.carouselConfig.interval = 5000;
     this.carouselConfig.wrap = false;
@@ -37,8 +39,8 @@ export class UserObrasComponent implements OnInit {
       })
   }
 
-  public update(id: number): void {
-    
+  public navigateToUpdate(id: number): void {
+    this.router.navigate([`user/obras/update/${id}`])
   }
 
   public delete(id: number): void{

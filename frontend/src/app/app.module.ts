@@ -20,6 +20,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserObraUpdateComponent } from './components/user/user-obra-update/user-obra-update.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     UserObraCreateComponent,
     SigninComponent,
     SignupComponent,
+    UserObraUpdateComponent,
   ],
   imports: [
     BrowserModule,
