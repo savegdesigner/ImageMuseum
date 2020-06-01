@@ -28,6 +28,7 @@ Inicialize o Servidor:
 
 ```
     cd backend
+    php artisan migrate
     php artisan serve
 
 ```
