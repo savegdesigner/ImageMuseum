@@ -1,10 +1,9 @@
 # Museu de Obras Interativas
-Criação de jogo de combate de cartas 
 
-# Desenvolvedores:
+## Desenvolvedores:
 Adriano Aclina & Vinicius Savegnago
 
-# Tecnologias:
+## Tecnologias:
 * Laravel 6
 * Angular 9
 
