@@ -1,5 +1,3 @@
-# Desenvolvido com Laravel 6, Angular9
-
 # Museu de Obras Interativas
 Criação de jogo de combate de cartas 
 
