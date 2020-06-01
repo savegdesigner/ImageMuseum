@@ -19,10 +19,12 @@ export class UserObrasComponent implements OnInit {
     private obraService: ObraService,
     private router: Router
     ) { 
-    this.carouselConfig.interval = 5000;
+    this.carouselConfig.interval = 3000;
     this.carouselConfig.wrap = false;
     this.carouselConfig.keyboard = false;
     this.carouselConfig.pauseOnHover = true;
+    this.carouselConfig.showNavigationArrows = false;
+    this.carouselConfig.showNavigationIndicators  = false;
   }
 
   ngOnInit(): void {
