@@ -57,6 +57,9 @@ class ObrasController extends Controller
             $imagens = Obra::find($id)->imagems;
             $obra = Obra::find($id);
             $obra['imagens'] = $imagens;
+            $base64 = $obra['imagens'][0]['imagem'];
+            $extension = explode('/', $base64);
+            $obra['imagens'][0]['imagem'] = base64_encode($extension[1]);
             return response()->json($obra);
         } else{
             return json_encode([$id => 'Obra não existe']);
