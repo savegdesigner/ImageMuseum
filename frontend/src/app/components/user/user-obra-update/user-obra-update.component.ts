@@ -43,13 +43,14 @@ export class UserObraUpdateComponent implements OnInit {
     let obraId = parseInt(this.obraId)
     this.obraService.getObraById(obraId)
       .subscribe(obra => {
-        this.obraName = obra.nome,
+        // console.log(obra)
+        this.obraName = obra.nome
         // obra.imagens.forEach(image => {
         //   let imagemAntiga = new Imagem
         //   imagemAntiga.style = {'filter': `${image.filtro}`}
-        //   imagemAntiga.file = `http://127.0.0.1:8000/storage/${image.imagem}`
+        //   imagemAntiga.file = image.imagem
         //   this.images.push(imagemAntiga)
-        // })
+        // }),
         error => console.log(error)
       })
   }
@@ -92,8 +93,6 @@ export class UserObraUpdateComponent implements OnInit {
   }
 
   public update(): void {
-    console.log(this.obra)
-
     let obraId = parseInt(this.obraId)
     this.obraService.updateObra(obraId, this.obra)
       .subscribe(res => {
