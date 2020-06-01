@@ -30,8 +30,7 @@ export class HeaderComponent implements OnInit {
 
   public logout(): void {
     this.authService.logout()
-      .subscribe(res => {
-        console.log(res)
+      .subscribe(() => {
         this.userService.logoutUser()
         this.userService.checkUserActive(),
         error => console.log(error)

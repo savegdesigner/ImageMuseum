@@ -29,8 +29,7 @@ export class HomeComponent implements OnInit {
   public readObras(): void {
       this.obraService.readObras()
         .subscribe(obras => {
-          this.obras = obras
-          console.log(this.obras),
+          this.obras = obras,
           error => console.log(error)
         })
 

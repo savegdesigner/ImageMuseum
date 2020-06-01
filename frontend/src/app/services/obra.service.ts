@@ -65,7 +65,7 @@ export class ObraService {
 
   public deleteObra(id: number): Observable<any> {
     return this.http.delete(
-      `${this.db}/obras/${id}`,
+      `${this.db}museum/obras/${id}`,
       {headers: new HttpHeaders({
         'X-Requested-With' : 'XMLHttpRequest'
       })})
