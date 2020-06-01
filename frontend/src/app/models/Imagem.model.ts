@@ -1,7 +1,6 @@
 class Imagem {
     style: Object
-    file: File
-    src?: string
+    file: any
 }
 
 export default Imagem
