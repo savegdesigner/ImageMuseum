@@ -88,8 +88,6 @@ export class UserObraCreateComponent implements OnInit {
   public createObra(): void {
     this.obraService.createObra(this.obra)
       .subscribe(res => {
-        console.log(res)
-        console.log(this.obra)
         this.router.navigate(['user/obras']),
         error => console.log(error)
       })

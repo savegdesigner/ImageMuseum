@@ -43,7 +43,6 @@ export class UserObraUpdateComponent implements OnInit {
     let obraId = parseInt(this.obraId)
     this.obraService.getObraById(obraId)
       .subscribe(obra => {
-        console.log(obra)
         this.obraName = obra.nome
         obra.imagens.forEach(image => {
           let imagemAntiga = new Imagem
@@ -96,7 +95,6 @@ export class UserObraUpdateComponent implements OnInit {
     let obraId = parseInt(this.obraId)
     this.obraService.updateObra(obraId, this.obra)
       .subscribe(res => {
-        console.log(res)
         this.router.navigate(['user/obras']),
         error => console.log(error)
       })
