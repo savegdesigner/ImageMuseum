@@ -5,6 +5,7 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import Imagem from 'src/app/models/Imagem.model';
 import { ObraService } from 'src/app/services/obra.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-user-obra-create',
@@ -12,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-obra-create.component.scss']
 })
 export class UserObraCreateComponent implements OnInit {
+
+  public messages = new Subject<string>()
+  public messagesToShow: string = ''
 
   public obraName: string
   public userId: string 
@@ -38,11 +42,15 @@ export class UserObraCreateComponent implements OnInit {
     this.carouselConfig.keyboard = false;
     this.carouselConfig.pauseOnHover = true;
     this.carouselConfig.showNavigationArrows = false;
-    this.carouselConfig.showNavigationIndicators  = false;
+    this.carouselConfig.showNavigationIndicators  = true;
   }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId')
+
+    this.messages.subscribe(message => {
+      this.messagesToShow = message
+    })
     
   }
 
@@ -70,15 +78,12 @@ export class UserObraCreateComponent implements OnInit {
 
   }
 
-  public resetImageStyle(): void {
-    
-  }
-
   public selectObra(): void {
 
     let imagem = new Imagem
     imagem.style = this.imageStyle 
     imagem.file = this.img
+    imagem.editingId = this.images.length
     this.images.push(imagem)
 
     this.obra.name = this.obraName
@@ -87,12 +92,26 @@ export class UserObraCreateComponent implements OnInit {
 
   }
 
+  public deleteImagem(id: number): void {
+    for(let i = 0; i < this.images.length; i++){
+      if(this.images[i].editingId == id){
+        this.images.splice(i, 1)
+      }
+    }
+  }
+
   public createObra(): void {
-    this.obraService.createObra(this.obra)
+
+    if(this.obra.name == undefined || this.obra.name == ''){
+      this.messages.next('Sua obra precisa de um nome')
+
+    }else{
+      this.obraService.createObra(this.obra)
       .subscribe(res => {
-        this.router.navigate(['user/obras']),
-        error => console.log(error)
+        this.router.navigate(['user/obras'])
+
       })
+    }
 
   }
 

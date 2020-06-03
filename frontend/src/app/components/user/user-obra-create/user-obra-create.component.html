@@ -12,7 +12,7 @@
         <input (change)="getImageFile($event)" type="file" accept='image/*' class="form-control-file" id="imagem">
     </div>
 
-    <form *ngIf="editorOn" [formGroup]="editorForm" (ngSubmit)="aplicar()" class="editor">
+    <form *ngIf="editorOn" [formGroup]="editorForm" class="editor">
         <div class="sliders">
             <div id="imageEditor">
               <p>
@@ -38,8 +38,8 @@
             </div>
 
             <div class="options-buttons">
-              <button (click)="resetImageStyle()" class="btn btn-danger mb-2">Resetar</button>
-              <button type="submit" class="btn btn-primary mb-2">Aplicar</button>
+              <button  class="btn btn-danger mb-2">Resetar</button>
+              <button (click)="aplicar()" class="btn btn-primary mb-2">Aplicar</button>
             </div>
 
           </div>	
@@ -60,9 +60,14 @@
 
 <h2>Visualização da obra</h2>
 
+<span class="error">{{messagesToShow}}</span>
+
 <ngb-carousel>
 
   <ng-template ngbSlide *ngFor="let image of images">
+
+    <button (click)="deleteImagem(image.editingId)" class="btn btn-warning removeImage">Remover</button>
+
     <div class="picsum-img-wrapper">
       <img [ngStyle]="image.style" class="image-preview" src="{{image.file}}" alt="">
     </div>
@@ -76,3 +81,4 @@
 <button id="create-obra-button" (click)="createObra()" class="btn btn-primary">Criar obra</button>
 
 </div>
+

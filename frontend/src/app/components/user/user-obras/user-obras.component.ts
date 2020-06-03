@@ -35,8 +35,7 @@ export class UserObrasComponent implements OnInit {
   public readObras(): void {
     this.obraService.readObraById(this.userId)
       .subscribe(obras => {
-        this.obras = obras,
-        error => console.log(error)
+        this.obras = obras
       })
   }
 
@@ -47,8 +46,7 @@ export class UserObrasComponent implements OnInit {
   public delete(id: number): void{
     this.obraService.deleteObra(id)
       .subscribe(() => {
-        this.router.navigate(['home']),
-        error => console.log(error)
+        this.router.navigate([''])
       })
   }
 
