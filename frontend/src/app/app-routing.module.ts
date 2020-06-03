@@ -11,7 +11,7 @@ import { UserObraUpdateComponent } from './components/user/user-obra-update/user
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent
   },
   {

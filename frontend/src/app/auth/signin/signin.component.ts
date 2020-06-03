@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import User from 'src/app/models/User.model';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-signin',
@@ -11,6 +12,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+
+  public messages = new Subject<string>()
+  public messagesToShow: string = ''
 
   public signinForm: FormGroup = new FormGroup({
     email: new FormControl(),
@@ -24,6 +28,9 @@ export class SigninComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.messages.subscribe(message => {
+      this.messagesToShow = message
+    })
   }
 
   public signIn(): void {
@@ -32,15 +39,22 @@ export class SigninComponent implements OnInit {
       this.signinForm.value.email,
       this.signinForm.value.password
     )
-    
+
+    if(user.email == null || user.email == '' || user.email == undefined
+      || user.password == null || user.password == '' || user.password == undefined){
+        this.messages.next('Preencha todos os campos')
+    }else{
+      this.messages.next('')
+
       this.authService.signin(user)
-        .subscribe(response => {
-          this.authService.setToken(response.access_token)
-          this.userService.setId(response.user_id)
-          this.userService.checkUserActive()
-          this.router.navigate(['home']),
-          error => console.log(error)
-        })
+      .subscribe(response => {
+        this.authService.setToken(response.access_token)
+        this.userService.setId(response.user_id)
+        this.userService.checkUserActive()
+        this.router.navigate([''])
+      })
+
+    }
         
   }
 

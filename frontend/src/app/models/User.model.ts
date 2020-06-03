@@ -2,7 +2,7 @@ import Obra from './Obra.model'
 
 class User {
     public email: string
-    private password: string
+    public password: string
     public name: string
 
     constructor(email: string, password: string){

@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
         this.userService.checkUserActive(),
         error => console.log(error)
       })
-    this.router.navigate(['home'])
+    this.router.navigate([''])
 
   }
 
