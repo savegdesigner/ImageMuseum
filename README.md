@@ -21,13 +21,14 @@ Instale as dependências:
 ```
     composer i
     npm i
+    crie uma database com o nome de imageMuseum
 
 ```
 
 Inicialize o Servidor:
 
 ```
-    crie uma database com o nome de imageMuseum
+    
     cd backend
     php artisan migrate
     php artisan serve
